@@ -111,4 +111,9 @@ jobs:
           kustomize edit set image frontend=$ECR_REGISTRY/frontend:$GITHUB_SHA
           kustomize build | kubectl apply -f -
 
+      - name: Print Frontend LoadBalancer URL
+        run: |
+          kubectl get service frontend \
+            -o jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}'
+
         
